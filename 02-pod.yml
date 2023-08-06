@@ -9,3 +9,15 @@ spec:
 
     - name: mongo
       image: mongo
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod03
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+---
+

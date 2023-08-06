@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/containerID: 3ccb4ebbdbfa0bca1ebfb6682ea0e3ceaeb7e2ab58880ea32e6cd3e09aa2d0bf
+    cni.projectcalico.org/podIP: 192.168.219.76/32
+    cni.projectcalico.org/podIPs: 192.168.219.76/32
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"pod02","namespace":"default"},"spec":{"containers":[{"image":"nginx","name":"nginx"},{"image":"mongo","name":"mongo"}]}}
+  creationTimestamp: "2023-08-06T08:06:58Z"
+  name: pod02
+  namespace: default
+  resourceVersion: "40707"
+  uid: 1b12297b-42ec-4f92-8faa-6d9517186bcb
+spec:
+  containers:
+    - image: nginx
+      imagePullPolicy: Always
+      name: nginx
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-28lgx
+          readOnly: true
+    - image: mongo
+      imagePullPolicy: Always
+      name: mongo
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-28lgx
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: ip-10-0-101-10.ec2.internal
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-28lgx
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2023-08-06T08:06:58Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2023-08-06T08:07:17Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2023-08-06T08:07:17Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2023-08-06T08:06:58Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://d1f76fe4906c1eeb1a620938061bb54257352c3ecb9222d266ff6fb2fc90928b
+      image: docker.io/library/mongo:latest
+      imageID: docker.io/library/mongo@sha256:20f3adcaffe2193e49dd502c8299b770d49a1e0643e0e9db250d5c127b1e9ed8
+      lastState: {}
+      name: mongo
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2023-08-06T08:07:17Z"
+    - containerID: containerd://fc9f299812e5c5784134fcee89caf249cf2d526b71c015e1dfa4bdf4047e75b8
+      image: docker.io/library/nginx:latest
+      imageID: docker.io/library/nginx@sha256:67f9a4f10d147a6e04629340e6493c9703300ca23a2f7f3aa56fe615d75d31ca
+      lastState: {}
+      name: nginx
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2023-08-06T08:07:04Z"
+  hostIP: 10.0.101.10
+  phase: Running
+  podIP: 192.168.219.76
+  podIPs:
+    - ip: 192.168.219.76
+  qosClass: BestEffort
+  startTime: "2023-08-06T08:06:58Z"
