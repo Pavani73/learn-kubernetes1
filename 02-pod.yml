@@ -71,3 +71,13 @@ spec:
         path: /data
         # this field is optional
         type: Directory
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod05
+spec:
+  enableServiceLinks: false
+  containers:
+    - name: nginx
+      image: nginx
