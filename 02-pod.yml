@@ -50,3 +50,24 @@ spec:
       command: ["/bin/sh"]
       args: ["-c", "sleep 10 && echo Sleep expired > /dev/termination-log"]
 
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+    - name: volume
+      image: debian
+      command: [ "/bin/sh" ]
+      args: ["-c", "while true ; do date>/data/out; sleep 1; done"]
+      volumeMounts:
+        - mountPath: /data
+          name: test-volume
+  volumes:
+    - name: test-volume
+      hostPath:
+        # directory location on host
+        path: /data
+        # this field is optional
+        type: Directory
