@@ -19,5 +19,5 @@ spec:
         type: rs
     spec:
       containers:
-        - name: nginx container
+        - name: nginx
           image: nginx
